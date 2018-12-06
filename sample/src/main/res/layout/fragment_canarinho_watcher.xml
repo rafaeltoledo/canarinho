@@ -27,7 +27,7 @@
             <EditText
                 android:id="@+id/edit_text"
                 android:layout_width="match_parent"
-                android:layout_height="235dp"
+                android:layout_height="wrap_content"
                 android:lineSpacingExtra="4dp"
                 android:layout_margin="4dp"
                 android:digits="0123456789.\n "
