@@ -71,10 +71,10 @@ public abstract class BaseCanarinhoTextWatcher implements TextWatcher {
         mudancaInterna = true;
         s.replace(0, s.length(), builder, 0, builder.length());
 
-        if (builder.toString().equals(s.toString())) {
-            // TODO: estudar implantar a manutenção da posição do cursor
-            Selection.setSelection(s, builder.length());
-        }
+//        if (builder.toString().equals(s.toString())) {
+//            // TODO: estudar implantar a manutenção da posição do cursor
+//            Selection.setSelection(s, builder.length());
+//        }
 
         efetuaValidacao(validador, resultadoParcial, s, ehTributo);
         mudancaInterna = false;

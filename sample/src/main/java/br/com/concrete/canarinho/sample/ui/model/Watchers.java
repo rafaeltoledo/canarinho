@@ -33,7 +33,8 @@ public enum Watchers {
 
         @Override
         public TextWatcher setupWatcher(TextInputLayout textInputLayout) {
-            return new BoletoBancarioTextWatcher(new SampleEventoDeValidacao(textInputLayout), null);
+            return new BoletoBancarioTextWatcher(new SampleEventoDeValidacao(textInputLayout),
+                    null, false);
         }
     },
 
@@ -45,7 +46,8 @@ public enum Watchers {
 
         @Override
         public TextWatcher setupWatcher(TextInputLayout textInputLayout) {
-            return new BoletoBancarioTextWatcher(new EventoDeValidacaoBoleto(textInputLayout), null);
+            return new BoletoBancarioTextWatcher(new EventoDeValidacaoBoleto(textInputLayout),
+                    null, false);
         }
     },
 
@@ -58,7 +60,21 @@ public enum Watchers {
         @Override
         public TextWatcher setupWatcher(TextInputLayout textInputLayout) {
             return new BoletoBancarioTextWatcher(new EventoDeValidacaoBoletoDestacado(textInputLayout),
-                    Color.parseColor("#d20f02"));
+                    Color.parseColor("#d20f02"), false);
+        }
+    },
+
+    BOLETO_BANCARIO_MSG_DESTACADO_MULTI_LINHA("Boleto Bancário com destaque Multi Linha",
+            "Digite um boleto válido") {
+        @Override
+        public WatcherFragment buildFragment() {
+            return WatcherFragment.newInstance(this);
+        }
+
+        @Override
+        public TextWatcher setupWatcher(TextInputLayout textInputLayout) {
+            return new BoletoBancarioTextWatcher(new EventoDeValidacaoBoletoDestacado(textInputLayout),
+                    Color.parseColor("#d20f02"), true);
         }
     },
 
@@ -251,8 +267,8 @@ public enum Watchers {
 
         @Override
         public void invalido(String valorAtual, List<Integer> blocoInvalido) {
-            StringBuilder builder = new StringBuilder();
-
+//            StringBuilder builder = new StringBuilder();
+//
 //            if (blocoInvalido.contains(1))
 //                builder.append("Primeira mensagem");
 //

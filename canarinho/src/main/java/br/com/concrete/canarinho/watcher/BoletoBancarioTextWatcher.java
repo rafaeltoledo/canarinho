@@ -1,6 +1,5 @@
 package br.com.concrete.canarinho.watcher;
 
-import android.graphics.Color;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
@@ -24,22 +23,36 @@ public final class BoletoBancarioTextWatcher extends BaseCanarinhoTextWatcher {
 
     private static final char[] BOLETO_NORMAL = "#####.##### #####.###### #####.###### # ##############".toCharArray();
     private static final char[] BOLETO_TRIBUTO = "############ ############ ############ ############".toCharArray();
+    private static final char[] BOLETO_NORMAL_MULTI_LINHA = "#####.#####\n#####.######\n#####.###### #\n##############".toCharArray();
+    private static final char[] BOLETO_TRIBUTO_MULTI_LINHA = "############\n############\n############\n############".toCharArray();
     private static final InputFilter[] FILTRO_TRIBUTO = new InputFilter[]{
             new InputFilter.LengthFilter(BOLETO_TRIBUTO.length)};
     private static final InputFilter[] FILTRO_NORMAL = new InputFilter[]{
             new InputFilter.LengthFilter(BOLETO_NORMAL.length)};
+    private static final InputFilter[] FILTRO_TRIBUTO_MULTI_LINHA = new InputFilter[]{
+            new InputFilter.LengthFilter(BOLETO_TRIBUTO_MULTI_LINHA.length)};
+    private static final InputFilter[] FILTRO_NORMAL_MULTI_LINHA = new InputFilter[]{
+            new InputFilter.LengthFilter(BOLETO_NORMAL_MULTI_LINHA.length)};
     private Integer corMarcacao;
+    private  boolean ehMultiLinha = false;
 
     private final Validador validador = ValidadorBoleto.getInstance();
     private final Validador.ResultadoParcial resultadoParcial = new Validador.ResultadoParcial();
 
     /**
-     * TODO Javadoc pendente
-     *
+     * TODO Javadoc incompleto
+     * Ao adicionar o Watcher não esquecer de colocar
+     * android:digits="0123456789.\n " no EditText
      * @param callbackErros a descrever
      */
-    public BoletoBancarioTextWatcher(EventoDeValidacao callbackErros, Integer corMarcacao) {
+    public BoletoBancarioTextWatcher(EventoDeValidacao callbackErros, Integer corMarcacao,
+                                     boolean ehMultiLinha) {
         this.corMarcacao = corMarcacao;
+        this.ehMultiLinha = ehMultiLinha;
+        setEventoDeValidacao(callbackErros);
+    }
+
+    public BoletoBancarioTextWatcher(EventoDeValidacao callbackErros) {
         setEventoDeValidacao(callbackErros);
     }
 
@@ -67,7 +80,12 @@ public final class BoletoBancarioTextWatcher extends BaseCanarinhoTextWatcher {
         }
 
         final boolean tributo = ehTributo(s);
-        final char[] mascara = tributo ? BOLETO_TRIBUTO : BOLETO_NORMAL;
+        final char[] mascara;
+        if (ehMultiLinha) {
+            mascara = tributo ? BOLETO_TRIBUTO_MULTI_LINHA : BOLETO_NORMAL_MULTI_LINHA;
+        } else {
+            mascara = tributo ? BOLETO_TRIBUTO : BOLETO_NORMAL;
+        }
         verificaFiltro(s, tributo);
 
         // Trata deleção e adição de forma diferente (só formata em adições)
@@ -155,9 +173,13 @@ public final class BoletoBancarioTextWatcher extends BaseCanarinhoTextWatcher {
 
     private void verificaFiltro(final Editable s, final boolean tributo) {
         // Filtro de tamanho
-        if (tributo && !Arrays.equals(s.getFilters(), FILTRO_TRIBUTO)) {
+        if (ehMultiLinha && tributo && !Arrays.equals(s.getFilters(), FILTRO_TRIBUTO_MULTI_LINHA)){
+            s.setFilters(FILTRO_TRIBUTO_MULTI_LINHA);
+        } else if (ehMultiLinha && !tributo && !Arrays.equals(s.getFilters(), FILTRO_NORMAL_MULTI_LINHA)) {
+            s.setFilters(FILTRO_NORMAL_MULTI_LINHA);
+        } else if (!ehMultiLinha && tributo && !Arrays.equals(s.getFilters(), FILTRO_TRIBUTO)) {
             s.setFilters(FILTRO_TRIBUTO);
-        } else if (!tributo && !Arrays.equals(s.getFilters(), FILTRO_NORMAL)) {
+        } else if (!ehMultiLinha && tributo && !Arrays.equals(s.getFilters(), FILTRO_NORMAL)) {
             s.setFilters(FILTRO_NORMAL);
         }
     }

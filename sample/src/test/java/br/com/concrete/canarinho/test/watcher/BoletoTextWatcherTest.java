@@ -38,7 +38,8 @@ public class BoletoTextWatcherTest {
                 final Watchers.SampleEventoDeValidacao sampleEventoDeValidacao =
                         new Watchers.SampleEventoDeValidacao(textInputLayout);
 
-                editText.addTextChangedListener(watcher = new BoletoBancarioTextWatcher(sampleEventoDeValidacao, Color.parseColor("#d20f02")));
+                editText.addTextChangedListener(watcher = new BoletoBancarioTextWatcher(sampleEventoDeValidacao,
+                        Color.parseColor("#d20f02"), false));
 
                 activity.setContentView(textInputLayout);
             }
