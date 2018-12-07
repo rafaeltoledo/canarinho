@@ -90,7 +90,7 @@ public final class BoletoBancarioTextWatcher extends BaseCanarinhoTextWatcher {
 
         // Trata deleção e adição de forma diferente (só formata em adições)
         final StringBuilder builder = trataAdicaoRemocaoDeCaracter(s, mascara);
-        atualizaTexto(validador, resultadoParcial, s, builder, tributo);
+        atualizaTextoBoleto(validador, resultadoParcial, s, builder, tributo);
     }
 
     public Validador.ResultadoParcial getResultadoParcial() {

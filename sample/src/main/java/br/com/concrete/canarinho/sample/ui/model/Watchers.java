@@ -8,7 +8,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.List;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
 import br.com.concrete.canarinho.sample.ui.fragment.BaseWatcherFragment;
 import br.com.concrete.canarinho.sample.ui.fragment.CanarinhoValorMonetarioWatcherFragment;
 import br.com.concrete.canarinho.sample.ui.fragment.WatcherFragment;

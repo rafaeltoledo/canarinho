@@ -18,6 +18,7 @@ public abstract class BaseCanarinhoTextWatcher implements TextWatcher {
     private boolean mudancaInterna = false;
     private int tamanhoAnterior = 0;
     private EventoDeValidacao eventoDeValidacao;
+    private boolean ehTributo;
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -65,8 +66,20 @@ public abstract class BaseCanarinhoTextWatcher implements TextWatcher {
     // Usa o Editable para atualizar o Editable
     // O cursor SEMPRE sera posicionado no final do conteúdo
     protected void atualizaTexto(Validador validador, Validador.ResultadoParcial resultadoParcial,
-                                 Editable s, StringBuilder builder, boolean ehTributo) {
+                                 Editable s, StringBuilder builder) {
 
+        efetuaAtualizacaoTexto(validador, resultadoParcial, s, builder);
+    }
+
+    protected void atualizaTextoBoleto(Validador validador, Validador.ResultadoParcial resultadoParcial,
+                                       Editable s, StringBuilder builder, boolean ehTributo) {
+        this.ehTributo = ehTributo;
+        efetuaAtualizacaoTexto(validador, resultadoParcial, s, builder);
+
+    }
+
+    private void efetuaAtualizacaoTexto(Validador validador, Validador.ResultadoParcial resultadoParcial,
+                                        Editable s, StringBuilder builder) {
         tamanhoAnterior = builder.length();
         mudancaInterna = true;
         s.replace(0, s.length(), builder, 0, builder.length());
