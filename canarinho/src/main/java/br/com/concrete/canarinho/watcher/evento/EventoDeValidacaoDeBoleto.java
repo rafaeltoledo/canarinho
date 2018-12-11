@@ -9,7 +9,8 @@ import java.util.List;
 public interface EventoDeValidacaoDeBoleto extends EventoDeValidacao {
 
     /**
-     * Invocado quando os números digitados estão inválidos. Pode ser apenas um trecho ou o número completo.
+     * Invocado quando os números digitados estão inválidos. Pode ser apenas um trecho ou o
+     * número completo.
      *
      * @param valorAtual    O valor após a digitação.
      * @param blocoInvalido Os blocos com valor inválido

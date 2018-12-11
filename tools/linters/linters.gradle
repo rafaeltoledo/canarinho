@@ -5,7 +5,7 @@ apply plugin: 'pmd'
 check.dependsOn 'checkstyle', 'findbugs', 'pmd'
 
 checkstyle {
-    toolVersion '8.14'
+    toolVersion '8.15'
     configFile file("$rootDir/tools/linters/checkstyle/checkstyle.xml")
     configProperties.checkstyleSuppressionsPath = file(
             "$rootDir/tools/linters/checkstyle/suppressions.xml"

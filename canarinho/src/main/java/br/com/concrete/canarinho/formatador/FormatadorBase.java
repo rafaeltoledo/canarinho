@@ -21,9 +21,11 @@ final class FormatadorBase implements Formatador {
      * Constrói um formatador que recebe a configuração de formatação e substituição.
      *
      * @param formatted              Pattern de regex para formatar o conteúdo
-     * @param formattedReplacement   String com as posições de substituição dos grupos encontrados por regex
+     * @param formattedReplacement   String com as posições de substituição dos grupos encontrados
+     *                               por regex
      * @param unformatted            Pattern de regex para DESformatar o conteúdo
-     * @param unformattedReplacement String com as posições de substituição dos grupos encontrados por regex
+     * @param unformattedReplacement String com as posições de substituição dos grupos encontrados
+     *                               por regex
      */
     FormatadorBase(
             Pattern formatted,

@@ -191,7 +191,7 @@ public final class DigitoPara {
         }
 
         /**
-         * Troca por uma String caso encontre qualquer dos inteiros passados como argumento
+         * Troca por uma String caso encontre qualquer dos inteiros passados como argumento.
          *
          * @param substituto String para substituir
          * @param i          varargs de inteiros a serem substituídos

@@ -36,13 +36,16 @@ import static org.hamcrest.Matchers.anyOf;
 @RunWith(AndroidJUnit4.class)
 public class DemoWatchersInstrumentationTest {
 
+    // TODO refactor to use FragmentScenario and remove Thread.sleep() calls
+
     @Rule
     public ActivityTestRule<MainActivity> rule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void consegueDigitarUmBoletoNormalValido() {
+    public void consegueDigitarUmBoletoNormalValido() throws InterruptedException {
 
         navigateToTab(Watchers.BOLETO_BANCARIO);
+        Thread.sleep(200L);
 
         onView(allOf(withId(R.id.edit_text), isDisplayed()))
                 .perform(typeText("34199310130010011560900500990007800000000000000"));
@@ -51,9 +54,10 @@ public class DemoWatchersInstrumentationTest {
     }
 
     @Test
-    public void consegueValidarUmBoletoSetandoOCodigoInteiro() {
+    public void consegueValidarUmBoletoSetandoOCodigoInteiro() throws InterruptedException {
 
         navigateToTab(Watchers.BOLETO_BANCARIO);
+        Thread.sleep(200L);
 
         onView(allOf(withId(R.id.edit_text), isDisplayed()))
                 .perform(paste("34199310130010011560900500990007800000000000000"));
@@ -62,9 +66,10 @@ public class DemoWatchersInstrumentationTest {
     }
 
     @Test
-    public void consegueValidarUmBoletoTributoSetandoOCodigoInteiro() {
+    public void consegueValidarUmBoletoTributoSetandoOCodigoInteiro() throws InterruptedException {
 
         navigateToTab(Watchers.BOLETO_BANCARIO);
+        Thread.sleep(200L);
 
         onView(allOf(withId(R.id.edit_text), isDisplayed()))
                 .perform(paste("812345678901812345678901812345678901812345678901"));
@@ -73,30 +78,32 @@ public class DemoWatchersInstrumentationTest {
     }
 
     @Test
-    public void consegueDigitarUmBoletoNormalComBlocosInvalidos() {
+    public void consegueDigitarUmBoletoNormalComBlocosInvalidos() throws InterruptedException {
 
         navigateToTab(Watchers.BOLETO_BANCARIO);
+        Thread.sleep(200L);
 
         // primeiro
         onView(allOf(withId(R.id.edit_text), isDisplayed()))
                 .perform(typeText("23790125016"));
-        onView(withText("Primeiro bloco inválido")).check(matches(isDisplayed()));
+        onView(withText("Primeiro bloco(s) inválido(s)")).check(matches(isDisplayed()));
 
         // segundo
         onView(allOf(withId(R.id.edit_text), isDisplayed()))
                 .perform(clearText(), typeText("2379012301600000030054"));
-        onView(withText("Segundo bloco inválido")).check(matches(isDisplayed()));
+        onView(withText("Segundo bloco(s) inválido(s)")).check(matches(isDisplayed()));
 
         // terceiro
         onView(allOf(withId(R.id.edit_text), isDisplayed()))
                 .perform(clearText(), typeText("23790123016000000005325000456708"));
-        onView(withText("Terceiro bloco inválido")).check(matches(isDisplayed()));
+        onView(withText("Terceiro bloco(s) inválido(s)")).check(matches(isDisplayed()));
     }
 
     @Test
-    public void consegueDigitarUmBoletoTributoValido() {
+    public void consegueDigitarUmBoletoTributoValido() throws InterruptedException {
 
         navigateToTab(Watchers.BOLETO_BANCARIO);
+        Thread.sleep(200L);
 
         // Boleto válido
         onView(allOf(withId(R.id.edit_text), isDisplayed()))
@@ -115,9 +122,10 @@ public class DemoWatchersInstrumentationTest {
     }
 
     @Test
-    public void consegueDigitarUmBoletoNormalComBlocosInvalidosComMensagemCustomizada() {
+    public void consegueDigitarUmBoletoNormalComBlocosInvalidosComMensagemCustomizada() throws InterruptedException {
 
         navigateToTab(Watchers.BOLETO_BANCARIO_MSG_CUSTOM);
+        Thread.sleep(200L);
 
         // primeiro
         onView(allOf(withId(R.id.edit_text), isDisplayed()))
@@ -136,9 +144,10 @@ public class DemoWatchersInstrumentationTest {
     }
 
     @Test
-    public void consegueDigitarUmCPFValido() {
+    public void consegueDigitarUmCPFValido() throws InterruptedException {
 
         navigateToTab(Watchers.CPF);
+        Thread.sleep(200L);
 
         onView(allOf(withId(R.id.edit_text), isDisplayed())).perform(typeText("46574356636"));
 
@@ -148,18 +157,20 @@ public class DemoWatchersInstrumentationTest {
     }
 
     @Test
-    public void consegueDigitarUmCPFInvalido() {
+    public void consegueDigitarUmCPFInvalido() throws InterruptedException {
 
         navigateToTab(Watchers.CPF);
+        Thread.sleep(200L);
 
         onView(allOf(withId(R.id.edit_text), isDisplayed())).perform(typeText("46574356637"));
         onView(withText("CPF inválido")).check(matches(isDisplayed()));
     }
 
     @Test
-    public void consegueDigitarUmCNPJValido() {
+    public void consegueDigitarUmCNPJValido() throws InterruptedException {
 
         navigateToTab(Watchers.CNPJ);
+        Thread.sleep(200L);
 
         onView(allOf(withId(R.id.edit_text), isDisplayed())).perform(typeText("95621433000170"));
 
@@ -169,17 +180,20 @@ public class DemoWatchersInstrumentationTest {
     }
 
     @Test
-    public void consegueDigitarUmCNPJInvalido() {
+    public void consegueDigitarUmCNPJInvalido() throws InterruptedException {
 
         navigateToTab(Watchers.CNPJ);
+        Thread.sleep(200L);
         onView(allOf(withId(R.id.edit_text), isDisplayed())).perform(typeText("95621433000180"));
         onView(withText("CNPJ inválido")).check(matches(isDisplayed()));
     }
 
     @Test
-    public void consegueDigitarUmTelefoneValido() {
+    public void consegueDigitarUmTelefoneValido() throws InterruptedException {
 
         navigateToTab(Watchers.TELEFONE);
+
+        Thread.sleep(200L);
 
         onView(allOf(withId(R.id.edit_text), isDisplayed())).perform(typeText("1112345678"));
 
@@ -225,9 +239,11 @@ public class DemoWatchersInstrumentationTest {
     }
 
     @Test
-    public void consegueDigitarCPFCNPJValido() {
+    public void consegueDigitarCPFCNPJValido() throws InterruptedException {
 
         navigateToTab(Watchers.CPF_CNPJ);
+
+        Thread.sleep(200L);
 
         onView(allOf(withId(R.id.edit_text), isDisplayed())).perform(typeText("46574356636"));
         onView(withText("Campo válido!")).check(matches(isDisplayed())).perform(pressBack());
@@ -236,9 +252,10 @@ public class DemoWatchersInstrumentationTest {
     }
 
     @Test
-    public void consegueDigitarCPFCNPJInvalido() {
+    public void consegueDigitarCPFCNPJInvalido() throws InterruptedException {
 
         navigateToTab(Watchers.CPF_CNPJ);
+        Thread.sleep(200L);
 
         onView(allOf(withId(R.id.edit_text), isDisplayed())).perform(typeText("46574356637"));
         onView(withText("CPF inválido")).check(matches(isDisplayed()));
@@ -248,9 +265,11 @@ public class DemoWatchersInstrumentationTest {
     }
 
     @Test
-    public void consegueDigitarUmCEPValido() {
+    public void consegueDigitarUmCEPValido() throws InterruptedException {
 
         navigateToTab(Watchers.CEP);
+
+        Thread.sleep(200L);
 
         onView(allOf(withId(R.id.edit_text), isDisplayed())).perform(typeText("49025090"));
 
@@ -259,9 +278,11 @@ public class DemoWatchersInstrumentationTest {
     }
 
     @Test
-    public void consegueUtilizarUmaMascaraGenericaSemValidadorOuEvento() {
+    public void consegueUtilizarUmaMascaraGenericaSemValidadorOuEvento() throws InterruptedException {
 
         navigateToTab(Watchers.MASCARA_GENERICA);
+
+        Thread.sleep(200L);
 
         onView(allOf(withId(R.id.edit_text), isDisplayed()))
                 .perform(typeText("12345"))

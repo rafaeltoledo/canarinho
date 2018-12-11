@@ -61,7 +61,8 @@ public class ValorMonetarioWatcher implements TextWatcher {
                 .replaceAll("");
 
         // afterTextChanged é chamado ao rotacionar o dispositivo,
-        // essa condição evita que ao rotacionar a tela com o campo vazio ocorra NumberFormatException
+        // essa condição evita que ao rotacionar a tela com o campo vazio ocorra
+        // NumberFormatException
         if (somenteNumeros.length() == 0) {
             if (mantemZerosAoLimpar) {
                 atualizaTexto(s, formatador.formata("000"));
