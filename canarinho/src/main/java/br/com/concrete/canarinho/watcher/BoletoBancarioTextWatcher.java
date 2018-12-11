@@ -35,6 +35,7 @@ public final class BoletoBancarioTextWatcher extends BaseCanarinhoTextWatcher {
             new InputFilter.LengthFilter(BOLETO_NORMAL_MULTI_LINHA.length)};
     private Integer corMarcacao;
     private  boolean ehMultiLinha = false;
+    private boolean ehTributo;
 
     private final Validador validador = ValidadorBoleto.getInstance();
     private final Validador.ResultadoParcial resultadoParcial = new Validador.ResultadoParcial();
@@ -79,18 +80,18 @@ public final class BoletoBancarioTextWatcher extends BaseCanarinhoTextWatcher {
             return;
         }
 
-        final boolean tributo = ehTributo(s);
+        this.ehTributo = ehTributo(s);
         final char[] mascara;
         if (ehMultiLinha) {
-            mascara = tributo ? BOLETO_TRIBUTO_MULTI_LINHA : BOLETO_NORMAL_MULTI_LINHA;
+            mascara = ehTributo ? BOLETO_TRIBUTO_MULTI_LINHA : BOLETO_NORMAL_MULTI_LINHA;
         } else {
-            mascara = tributo ? BOLETO_TRIBUTO : BOLETO_NORMAL;
+            mascara = ehTributo ? BOLETO_TRIBUTO : BOLETO_NORMAL;
         }
-        verificaFiltro(s, tributo);
+        verificaFiltro(s, ehTributo);
 
         // Trata deleção e adição de forma diferente (só formata em adições)
         final StringBuilder builder = trataAdicaoRemocaoDeCaracter(s, mascara);
-        atualizaTextoBoleto(validador, resultadoParcial, s, builder, tributo);
+        atualizaTextoBoleto(validador, resultadoParcial, s, builder);
     }
 
     public Validador.ResultadoParcial getResultadoParcial() {
@@ -99,7 +100,7 @@ public final class BoletoBancarioTextWatcher extends BaseCanarinhoTextWatcher {
 
     @Override
     protected void efetuaValidacao(Validador validador, Validador.ResultadoParcial resultadoParcial,
-                                   Editable s, boolean ehTributo) {
+                                   Editable s) {
 
         validador.ehValido(s, resultadoParcial);
 

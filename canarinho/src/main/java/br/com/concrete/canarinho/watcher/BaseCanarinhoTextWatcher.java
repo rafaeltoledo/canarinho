@@ -18,7 +18,6 @@ public abstract class BaseCanarinhoTextWatcher implements TextWatcher {
     private boolean mudancaInterna = false;
     private int tamanhoAnterior = 0;
     private EventoDeValidacao eventoDeValidacao;
-    private boolean ehTributo;
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -72,8 +71,7 @@ public abstract class BaseCanarinhoTextWatcher implements TextWatcher {
     }
 
     protected void atualizaTextoBoleto(Validador validador, Validador.ResultadoParcial resultadoParcial,
-                                       Editable s, StringBuilder builder, boolean ehTributo) {
-        this.ehTributo = ehTributo;
+                                       Editable s, StringBuilder builder) {
         efetuaAtualizacaoTexto(validador, resultadoParcial, s, builder);
 
     }
@@ -89,7 +87,7 @@ public abstract class BaseCanarinhoTextWatcher implements TextWatcher {
 //            Selection.setSelection(s, builder.length());
 //        }
 
-        efetuaValidacao(validador, resultadoParcial, s, ehTributo);
+        efetuaValidacao(validador, resultadoParcial, s);
         mudancaInterna = false;
     }
 
@@ -102,7 +100,7 @@ public abstract class BaseCanarinhoTextWatcher implements TextWatcher {
      */
     // CUIDADO AO ATUALIZAR O Editable AQUI!!!
     protected void efetuaValidacao(Validador validador, Validador.ResultadoParcial resultadoParcial,
-                                   Editable s, boolean ehTributo) {
+                                   Editable s) {
 
         if (validador == null) {
             return;
