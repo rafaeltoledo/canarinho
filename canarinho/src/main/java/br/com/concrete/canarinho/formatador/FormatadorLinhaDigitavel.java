@@ -111,7 +111,7 @@ public final class FormatadorLinhaDigitavel implements Formatador {
         String primeiroBloco = valorDesformatadao.substring(0, 9);
         String segundoBloco = valorDesformatadao.substring(10, 20);
         String terceiroBloco = valorDesformatadao.substring(21, 31);
-        String quartoBloco = valorDesformatadao.substring(32, valorDesformatadao.length());
+        String quartoBloco = valorDesformatadao.substring(32);
 
         final StringBuilder boletoOrdenado = new StringBuilder(primeiroBloco)
                 .append(segundoBloco)
